@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:52:25 by jbasilio          #+#    #+#             */
-/*   Updated: 2022/11/28 18:52:27 by jbasilio         ###   ########.fr       */
+/*   Created: 2022/11/28 18:52:38 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/11/28 18:52:40 by jbasilio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
-int	main(void)
+void	color(int itr, t_data *data)
 {
-	t_data	data;
-
-	data.img.mlx = mlx_init();
-	data.img.win = mlx_new_window(data.img.mlx, WIDTH, HEIGHT, "Mandelbrot");
-	data.img.img = mlx_new_image(data.img.mlx, WIDTH, HEIGHT);
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel, \
-	&data.img.line_len, &data.img.endian);
-	data.sttgs.mx_itr = 150;
-	fractal(&data, mandelbrot);
-	mlx_loop(data.img.mlx);
+	itr *= 255 / data->sttgs.mx_itr;
+	itr = itr << 16 | itr << 8 | itr;
+	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, itr);
 }

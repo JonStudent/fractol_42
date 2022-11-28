@@ -1,7 +1,7 @@
 
 NAME = fractol
 
-SRC = src/main.c src/aux/mlx.c src/aux/coords.c src/sets/mandelbrot.c
+SRC = src/main.c src/aux/mlx.c src/aux/coords.c src/sets/mandelbrot.c src/aux/color.c
 
 OBJ = $(SRC:.c=.o)
 

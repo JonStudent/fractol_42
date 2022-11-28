@@ -1,7 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coords.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/28 18:52:48 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/11/28 18:52:50 by jbasilio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fractol.h"
 
-void	set_coordinates(t_data *data)
+//38 pixels in a cm
+int	set_coords(t_data *data)
 {
-	data->coords.real = ((double)data->coords.pix_x - (double)WIDTH / 2.0 - (CM * (WIDTH / 250))) / (CM * (HEIGHT / 100)); //38 pixels in a cm
-	data->coords.imag = ((double)HEIGHT / 2.0 - (double)data->coords.pix_y ) / (CM * (HEIGHT / 100)); //6 times escaled
+	data->n.rl = ((double)data->n.px_x - (double)WIDTH / 2.0) \
+	/ (CM * (HEIGHT / 100)) - 0;
+	data->n.ig = ((double)HEIGHT / 2.0 - (double)data->n.px_y) \
+	/ (CM * (HEIGHT / 100));
+	return (0);
 }

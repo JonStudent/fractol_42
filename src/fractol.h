@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/28 18:52:13 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/11/28 18:52:16 by jbasilio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -11,42 +23,44 @@
 //Pixels in one Centimeter
 # define CM 38
 
-typedef struct s_settings {
-    int max_iter;
-}               t_settings;
+typedef struct s_sttgs {
+	int	mx_itr;
+}	t_sttgs;
 
-typedef struct	s_coords {
-	int     pix_x;
-    int     pix_y;
-    double     real;
-    double     imag;
-    double     tmp;
-}				t_coords;
+typedef struct s_n {
+	int		px_x;
+	int		px_y;
+	double	rl;
+	double	ig;
+	double	tmp;
+}	t_n;
 
-typedef struct	s_img {
-    void    *mlx;
-    void    *win;
+typedef struct s_img {
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
-	int		line_length;
-    int     lenght;
+	int		line_len;
+	int		lenght;
 	int		endian;
-}				t_img;
+}	t_img;
 
 //Main  struct
-typedef struct	s_data {
-    t_settings  settings;
-	t_img		img;
-    t_coords    coords;
+typedef struct s_data {
+	t_sttgs	sttgs;
+	t_img	img;
+	t_n		n;
 }				t_data;
 
 //  AUX Functions
-
+int		set_coords(t_data *data);
+void	color(int itr, t_data *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	set_coordinates(t_data *data);
 
 //  Sets Functions
-void	mandelbrot(t_data *data);
+int		mandelbrot(t_data *data, double i_rl, double i_ig, int itr);
+void	fractal(t_data *data, int \
+(*set)(t_data *data, double i_rl, double i_ig, int itr));
 
 #endif

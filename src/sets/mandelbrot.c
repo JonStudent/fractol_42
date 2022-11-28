@@ -1,36 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbasilio <jbasilio@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/28 18:53:30 by jbasilio          #+#    #+#             */
+/*   Updated: 2022/11/28 18:53:32 by jbasilio         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fractol.h"
 
-int	recursive_mandlebrot(t_data *data, double init_real, double init_imag, int iter)
+int	mandelbrot(t_data *data, double i_rl, double i_ig, int itr)
 {
-	if (pow(data->coords.real, 2.0) + pow(data->coords.imag, 2.0) >= 4 || ++iter == data->settings.max_iter)
-		return (iter);
-	data->coords.tmp = data->coords.real;
-	data->coords.real = pow(data->coords.real, 2.0) - pow(data->coords.imag, 2.0) + init_real;
-	data->coords.imag = 2.0 * data->coords.tmp * data->coords.imag + init_imag;
-	return (recursive_mandlebrot(data, init_real, init_imag, iter));
+	if (pow(data->n.rl, 2.0) + pow(data->n.ig, 2.0) >= 4 \
+	|| ++itr == data->sttgs.mx_itr)
+		return (itr);
+	data->n.tmp = data->n.rl;
+	data->n.rl = pow(data->n.rl, 2.0) - pow(data->n.ig, 2.0) + i_rl;
+	data->n.ig = 2.0 * data->n.tmp * data->n.ig + i_ig;
+	return (mandelbrot(data, i_rl, i_ig, itr));
 }	
 
-void	mandelbrot(t_data *data)
+void	fractal(t_data *data, \
+int (*set)(t_data *data, double i_rl, double i_ig, int itr))
 {
-	int	iter;
-
-	data->settings.max_iter = 150;
-
-	data->coords.pix_y = -1;
-	while (++data->coords.pix_y < HEIGHT)
+	data->n.px_y = -1;
+	while (++data->n.px_y < HEIGHT)
 	{
-		data->coords.pix_x = -1;
-		while (++data->coords.pix_x < WIDTH)
-		{
-			set_coordinates(data);
-			iter = recursive_mandlebrot(data, data->coords.real, data->coords.imag, 0) * 255 / data->settings.max_iter;
-			if (iter == 255)
-				iter = 0;
-			my_mlx_pixel_put(data, data->coords.pix_x, data->coords.pix_y, iter << 16 | iter << 8| iter);
-		}
+		data->n.px_x = -1;
+		while (++data->n.px_x < WIDTH)
+			color(set(data, data->n.rl, data->n.ig, set_coords(data)), data);
 	}
+	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
 }
-			// if(sqrt(pow(data->coords.real, 2.0) + pow(data->coords.imag, 2.0)) <= 4.0)
-			// 	my_mlx_pixel_put(data, data->coords.pix_x, data->coords.pix_y, 0x00FF0000);
-			// if (!data->coords.real || !data->coords.imag)
-			// 	my_mlx_pixel_put(data, data->coords.pix_x, data->coords.pix_y, 0x00FFFFFF);
+			// if(sqrt(pow(data->n.rl, 2.0) + pow(data->n.ig, 2.0)) <= 4.0)
+			// 	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, 0x00FF0000);
+			// if (!data->n.rl || !data->n.ig)
+			// 	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, 0x00FFFFFF);
