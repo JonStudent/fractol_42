@@ -16,15 +16,19 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdio.h>
+# include <stdlib.h>
 
-# define WIDTH 900
+# define WIDTH 1600
 # define HEIGHT 900
 
 //Pixels in one Centimeter
-# define CM 38
+# define CM 86
 
 typedef struct s_sttgs {
 	int	mx_itr;
+	int	zoom;
+	double x_offset;
+	double y_offset;
 }	t_sttgs;
 
 typedef struct s_n {
@@ -60,7 +64,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 //  Sets Functions
 int		mandelbrot(t_data *data, double i_rl, double i_ig, int itr);
-void	fractal(t_data *data, int \
+void	pix_iter(t_data *data, int \
 (*set)(t_data *data, double i_rl, double i_ig, int itr));
+
+int	circle(t_data *data, double i_rl, double i_ig, int itr);
 
 #endif

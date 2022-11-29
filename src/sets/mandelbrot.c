@@ -23,17 +23,13 @@ int	mandelbrot(t_data *data, double i_rl, double i_ig, int itr)
 	return (mandelbrot(data, i_rl, i_ig, itr));
 }	
 
-void	fractal(t_data *data, \
-int (*set)(t_data *data, double i_rl, double i_ig, int itr))
+int	circle(t_data *data, double i_rl, double i_ig, int itr)
 {
-	data->n.px_y = -1;
-	while (++data->n.px_y < HEIGHT)
-	{
-		data->n.px_x = -1;
-		while (++data->n.px_x < WIDTH)
-			color(set(data, data->n.rl, data->n.ig, set_coords(data)), data);
-	}
-	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
+	(void)i_ig;
+	(void)i_rl;
+	if (pow(data->n.rl, 2.0) + pow(data->n.ig, 2.0) <= 4)
+		itr = data->sttgs.mx_itr;
+	return (itr);
 }
 			// if(sqrt(pow(data->n.rl, 2.0) + pow(data->n.ig, 2.0)) <= 4.0)
 			// 	my_mlx_pixel_put(data, data->n.px_x, data->n.px_y, 0x00FF0000);

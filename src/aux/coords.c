@@ -15,9 +15,22 @@
 //38 pixels in a cm
 int	set_coords(t_data *data)
 {
-	data->n.rl = ((double)data->n.px_x - (double)WIDTH / 2.0) \
-	/ (CM * (HEIGHT / 100)) - 0;
-	data->n.ig = ((double)HEIGHT / 2.0 - (double)data->n.px_y) \
-	/ (CM * (HEIGHT / 100));
+	data->n.rl = (data->n.px_x - WIDTH / 2.0) \
+	/ data->sttgs.zoom - data->sttgs.x_offset;
+	data->n.ig = (HEIGHT / 2.0 - data->n.px_y) \
+	/ data->sttgs.zoom - data->sttgs.y_offset;
 	return (0);
+}
+
+void	pix_iter(t_data *data, \
+int (*set)(t_data *data, double i_rl, double i_ig, int itr))
+{
+	data->n.px_y = -1;
+	while (++data->n.px_y < HEIGHT)
+	{
+		data->n.px_x = -1;
+		while (++data->n.px_x < WIDTH)
+			color(set(data, data->n.rl, data->n.ig, set_coords(data)), data);
+	}
+	mlx_put_image_to_window(data->img.mlx, data->img.win, data->img.img, 0, 0);
 }
