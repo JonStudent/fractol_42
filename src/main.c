@@ -33,9 +33,9 @@ int	mouse(int keycode, int x, int y, t_data *data)
 {
 	printf("keycode: %d (x:%d,y:%d)\n", keycode, x, y);
 	if (keycode == 4)
-		data->sttgs.zoom *= 2;
+		data->sttgs.zoom *= 2.0;
 	if (keycode == 5)
-		data->sttgs.zoom /= 2;
+		data->sttgs.zoom /= 2.0;
 	pix_iter(data, mandelbrot);
 	return (0);
 }
@@ -57,7 +57,9 @@ int	main(void)
 	// pix_iter(&data, circle);
 	pix_iter(&data, mandelbrot);
 
-	mlx_key_hook(data.img.win, keyboard, &data);
+	// mlx_key_hook(data.img.win, keyboard, &data);
+	mlx_hook(data.img.win, 2, 1L<<0, keyboard, &data);
+
 	mlx_mouse_hook(data.img.win, mouse, &data);
 
 	mlx_loop(data.img.mlx);

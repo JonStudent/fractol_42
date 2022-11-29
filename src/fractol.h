@@ -26,17 +26,17 @@
 
 typedef struct s_sttgs {
 	int	mx_itr;
-	int	zoom;
-	double x_offset;
-	double y_offset;
+	long double	zoom;
+	long double x_offset;
+	long double y_offset;
 }	t_sttgs;
 
 typedef struct s_n {
 	int		px_x;
 	int		px_y;
-	double	rl;
-	double	ig;
-	double	tmp;
+	long double	rl;
+	long double	ig;
+	long double	tmp;
 }	t_n;
 
 typedef struct s_img {
@@ -67,6 +67,7 @@ int		mandelbrot(t_data *data, double i_rl, double i_ig, int itr);
 void	pix_iter(t_data *data, int \
 (*set)(t_data *data, double i_rl, double i_ig, int itr));
 
+//	Debbug
 int	circle(t_data *data, double i_rl, double i_ig, int itr);
 
 #endif
